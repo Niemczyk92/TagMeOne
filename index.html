@@ -3,118 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Information for Lost Baggage</title>
+    <title>Lost Baggage Contact Information</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --light: #ecf0f1;
-            --dark: #1a252f;
-            --success: #2ecc71;
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         body {
-            background-color: #f9f9f9;
+            background-color: #f1f5f9;
             color: var(--dark);
             line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
         }
         
         .card {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin: 40px 0;
-            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gradient);
         }
         
         h1 {
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            font-weight: 700;
+            font-size: 28px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .intro-text {
+            text-align: center;
+            margin-bottom: 32px;
+            color: #64748b;
+        }
+        
+        .contact-container {
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .date-badge {
+            background: var(--gradient);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .contact-info {
-            margin: 30px 0;
+            background: var(--light);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+        }
+        
+        .active {
+            background: rgba(37, 99, 235, 0.05);
+            border-left: 4px solid var(--success);
         }
         
         .contact-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            background-color: var(--light);
-            transform: translateY(-2px);
+            margin: 15px 0;
         }
         
         .icon {
             margin-right: 15px;
-            color: var(--secondary);
-            font-size: 24px;
+            color: var(--primary);
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
         }
         
         .note {
             font-style: italic;
-            color: #7f8c8d;
+            color: #64748b;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         @media (max-width: 600px) {
             .card {
-                padding: 20px;
+                padding: 25px;
             }
             
             h1 {
                 font-size: 24px;
             }
+            
+            .contact-info {
+                padding: 20px;
+            }
+        }
+        
+        /* Glow effect */
+        .glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, rgba(37, 99, 235, 0) 70%);
+            z-index: -1;
+        }
+        
+        .glow-1 {
+            top: -50px;
+            right: -50px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .glow-2 {
+            bottom: -30px;
+            left: -30px;
+            animation: float 10s ease-in-out infinite 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(20px, 20px);
+            }
+        }
+        
+        /* Toggle switch */
+        .switch-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 180px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e2e8f0;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: var(--gradient);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(146px);
+        }
+        
+        .slider-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            z-index: 1;
+        }
+        
+        .before-text {
+            left: 15px;
+        }
+        
+        .after-text {
+            right: 15px;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    
     <div class="card">
-        <h1>Lost Baggage Contact Information</h1>
-        <p>If you found this luggage and need to contact the owner, please use the information below:</p>
+        <h1>Lost Baggage Contact</h1>
+        <p class="intro-text">If found, please contact me using the information below based on current date</p>
         
-        <div class="contact-info">
-            <div class="contact-item">
-                <div class="icon">
-                    <i class="fas fa-user"></i>
+        <div class="switch-container">
+            <label class="switch">
+                <input type="checkbox" id="dateToggle">
+                <span class="slider"></span>
+                <span class="slider-text before-text">Before 7/28/2025</span>
+                <span class="slider-text after-text">After 7/28/2025</span>
+            </label>
+        </div>
+        
+        <div class="contact-container">
+            <div id="beforeDate" class="contact-info active">
+                <div class="date-badge">Valid until July 28, 2025</div>
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-user"></i></div>
+                    <div><strong>Name:</strong> Kamil Niemczyk</div>
                 </div>
-                <div>
-                    <strong>Name:</strong> Kamil
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div><strong>Address:</strong> Komorni Lhotka 194, 739 53, CZECH REPUBLIC</div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                    <div><strong>Email:</strong> <a href="mailto:k.niemczyk92@gmail.com">k.niemczyk92@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-phone"></i></div>
+                    <div><strong>Phone:</strong> +420 774 933 094</div>
                 </div>
             </div>
             
-            <div class="contact-item">
-                <div class="icon">
-                    <i class="fas fa-envelope"></i>
+            <div id="afterDate" class="contact-info">
+                <div class="date-badge">Valid from July 28, 2025</div>
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-user"></i></div>
+                    <div><strong>Name:</strong> Kamil Niemczyk</div>
                 </div>
-                <div>
-                    <strong>Email:</strong> <a href="mailto:kamil@centraltaste.com">kamil@centraltaste.com</a>
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div><strong>Address:</strong> 807 Belmont Pl, 33436, Florida, USA</div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                    <div><strong>Email:</strong> <a href="mailto:k.niemczyk92@gmail.com">k.niemczyk92@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon"><i class="fas fa-phone"></i></div>
+                    <div><strong>Phone:</strong> +1 754 262 9592</div>
                 </div>
             </div>
         </div>
         
-        <p class="note">Thank you for your honesty and assistance in returning this luggage. Your help is greatly appreciated.</p>
+        <p class="note">Thank you for your kindness in helping return this luggage. Your effort means the world to me!</p>
     </div>
+
+    <script>
+        // Automatic date detection
+        function updateContactDisplay() {
+            const currentDate = new Date();
+            const switchDate = new Date('2025-07-28');
+            const beforeDiv = document.getElementById('beforeDate');
+            const afterDiv = document.getElementById('afterDate');
+            const toggle = document.getElementById('dateToggle');
+            
+            if (currentDate >= switchDate) {
+                beforeDiv.classList.remove('active');
+                afterDiv.classList.add('active');
+                toggle.checked = true;
+            } else {
+                beforeDiv.classList.add('active');
+                afterDiv.classList.remove('active');
+                toggle.checked = false;
+            }
+        }
+        
+        // Toggle functionality
+        document.getElementById('dateToggle').addEventListener('change', function() {
+            const beforeDiv = document.getElementById('beforeDate');
+            const afterDiv = document.getElementById('afterDate');
+            
+            if (this.checked) {
+                beforeDiv.classList.remove('active');
+                afterDiv.classList.add('active');
+            } else {
+                beforeDiv.classList.add('active');
+                afterDiv.classList.remove('active');
+            }
+        });
+        
+        // Initialize
+        updateContactDisplay();
+        
+        // Update every minute in case page stays open
+        setInterval(updateContactDisplay, 60000);
+    </script>
 </body>
 </html>
