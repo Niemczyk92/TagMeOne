@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Information for Lost Baggage</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .contact-info {
+            margin: 30px 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background-color: var(--light);
+            transform: translateY(-2px);
+        }
+        
+        .icon {
+            margin-right: 15px;
+            color: var(--secondary);
+            font-size: 24px;
+        }
+        
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="card">
+        <h1>Lost Baggage Contact Information</h1>
+        <p>If you found this luggage and need to contact the owner, please use the information below:</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <strong>Name:</strong> Kamil
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <strong>Email:</strong> <a href="mailto:kamil@centraltaste.com">kamil@centraltaste.com</a>
+                </div>
+            </div>
+        </div>
+        
+        <p class="note">Thank you for your honesty and assistance in returning this luggage. Your help is greatly appreciated.</p>
+    </div>
+</body>
+</html>
