@@ -8,10 +8,12 @@
         :root {
             --primary: #3b82f6;
             --primary-dark: #2563eb;
+            --primary-light: #93c5fd;
             --secondary: #8b5cf6;
             --light: #f8fafc;
             --dark: #0f172a;
             --success: #10b981;
+            --warning: #f59e0b;
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             --glow: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);
         }
@@ -103,12 +105,12 @@
             perspective: 1000px;
         }
         
-        .date-badge {
+        .reward-badge {
             background: var(--gradient);
             color: white;
-            padding: 8px 16px;
+            padding: 12px 24px;
             border-radius: 24px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             display: inline-block;
             margin-bottom: 25px;
@@ -117,7 +119,14 @@
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
-            min-width: 220px;
+            min-width: 280px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
         }
         
         .contact-info {
@@ -179,21 +188,48 @@
         
         /* Phone button styling */
         .phone-link {
-            color: var(--primary-dark);
+            color: white;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 50px;
             transition: all 0.3s ease;
             display: inline-block;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            background: var(--primary);
+            border: none;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            margin-top: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
         }
         
         .phone-link:hover {
-            background: rgba(59, 130, 246, 0.2);
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
+        
+        .phone-link::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 60%
+            );
+            transform: rotate(30deg);
+            transition: all 0.3s;
+        }
+        
+        .phone-link:hover::after {
+            left: 100%;
         }
         
         /* Glow effects */
@@ -263,10 +299,15 @@
                 padding: 25px 20px;
             }
             
-            .date-badge {
-                font-size: 13px;
-                min-width: 200px;
-                padding: 6px 12px;
+            .reward-badge {
+                font-size: 14px;
+                min-width: 240px;
+                padding: 10px 16px;
+            }
+            
+            .phone-link {
+                padding: 10px 20px;
+                font-size: 16px;
             }
         }
         
@@ -335,13 +376,51 @@
             }
         }
         
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
+        /* Reward section */
+        .reward-section {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px dashed var(--secondary);
+            position: relative;
+        }
+        
+        .reward-section::before {
+            content: '✦';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 50%;
+            color: var(--secondary);
+            font-size: 14px;
+        }
+        
+        .reward-text {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        /* Emergency ribbon */
+        .emergency-ribbon {
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            background: var(--warning);
+            color: white;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-weight: 700;
+            font-size: 12px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+            z-index: 4;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -362,88 +441,103 @@
         <i class="fas fa-suitcase-rolling"></i>
     </div>
     
+    <div class="emergency-ribbon">LOST BAGGAGE</div>
+    
     <div class="card">
-        <h1>Lost Baggage Contact</h1>
-        <p class="intro-text">If you found my luggage, please contact me using the information below. Thank you for your kindness!</p>
+        <h1>Help! My Luggage is Lost</h1>
+        <p class="intro-text">If you found my suitcase, please contact me immediately. I'll be extremely grateful for your help!</p>
         
         <div class="contact-container">
             <div id="currentContact" class="contact-info active-contact">
-                <!-- Content will be dynamically inserted here -->
-            </div>
-        </div>
-        
-        <p class="note">This contact information updates automatically based on the current date.</p>
-    </div>
-
-    <script>
-        // Contact information data
-        const contacts = {
-            before: {
-                dateText: "Valid until July 28, 2025",
-                name: "Kamil Niemczyk",
-                address: "Komorni Lhotka 194, 739 53, CZECH REPUBLIC",
-                email: "k.niemczyk92@gmail.com",
-                phone: "+420 774 933 094",
-                phoneLink: "+420774933094"
-            },
-            after: {
-                dateText: "Valid from July 28, 2025",
-                name: "Kamil Niemczyk",
-                address: "807 Belmont Pl, 33436, Florida, USA",
-                email: "k.niemczyk92@gmail.com",
-                phone: "+1 754 262 9592",
-                phoneLink: "+17542629592"
-            }
-        };
-        
-        // Function to update contact display
-        function updateContactDisplay() {
-            const currentDate = new Date();
-            const switchDate = new Date('2025-07-28');
-            const contactContainer = document.getElementById('currentContact');
-            
-            const contactData = currentDate >= switchDate ? contacts.after : contacts.before;
-            
-            contactContainer.innerHTML = `
-                <div class="date-badge">${contactData.dateText}</div>
+                <div class="reward-badge">
+                    <i class="fas fa-gift"></i> Reward Offered for Return
+                </div>
+                
                 <div class="contact-item">
                     <div class="icon"><i class="fas fa-user"></i></div>
-                    <div class="contact-text"><strong>Name:</strong> ${contactData.name}</div>
+                    <div class="contact-text"><strong>Name:</strong> Kamil Niemczyk</div>
                 </div>
                 <div class="contact-item">
                     <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <div class="contact-text"><strong>Address:</strong> ${contactData.address}</div>
+                    <div class="contact-text"><strong>Current Location:</strong> Florida, USA</div>
                 </div>
                 <div class="contact-item">
                     <div class="icon"><i class="fas fa-envelope"></i></div>
-                    <div class="contact-text"><strong>Email:</strong> <a href="mailto:${contactData.email}">${contactData.email}</a></div>
+                    <div class="contact-text"><strong>Email:</strong> <a href="mailto:k.niemczyk92@gmail.com">k.niemczyk92@gmail.com</a></div>
                 </div>
-                <div class="contact-item">
-                    <div class="icon"><i class="fas fa-phone"></i></div>
-                    <div class="contact-text"><strong>Phone:</strong> <a href="tel:${contactData.phoneLink}" class="phone-link">${contactData.phone}</a></div>
+                
+                <div class="reward-section">
+                    <div class="reward-text">
+                        <i class="fas fa-phone-volume"></i> Please call me anytime!
+                    </div>
+                    <a href="tel:+17542629592" class="phone-link">
+                        <i class="fas fa-phone"></i> Call Now: +1 754 262 9592
+                    </a>
                 </div>
-            `;
-            
-            // Add animation class
-            contactContainer.classList.remove('active-contact');
-            void contactContainer.offsetWidth; // Trigger reflow
-            contactContainer.classList.add('active-contact');
-        }
+            </div>
+        </div>
         
-        // Initialize
-        updateContactDisplay();
+        <p class="note">Thank you for your kindness! Your help means the world to me.</p>
+    </div>
+
+    <script>
+        // Add animation to contact items
+        document.querySelectorAll('.contact-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+        });
         
-        // Update every minute in case page stays open
-        setInterval(updateContactDisplay, 60000);
+        // Make phone link more prominent
+        const phoneLink = document.querySelector('.phone-link');
+        phoneLink.addEventListener('mouseover', () => {
+            phoneLink.innerHTML = `<i class="fas fa-phone"></i> Click to Call: +1 754 262 9592`;
+        });
         
-        // Add click-to-call functionality
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('phone-link')) {
-                e.preventDefault();
-                const phoneNumber = e.target.getAttribute('href').replace('tel:', '');
-                if (confirm(`Do you want to call ${phoneNumber}?`)) {
-                    window.location.href = `tel:${phoneNumber}`;
+        phoneLink.addEventListener('mouseout', () => {
+            phoneLink.innerHTML = `<i class="fas fa-phone"></i> Call Now: +1 754 262 9592`;
+        });
+        
+        // Add confetti effect when phone number is clicked
+        phoneLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const phoneNumber = this.getAttribute('href').replace('tel:', '');
+            if (confirm(`Thank you for helping! Do you want to call ${phoneNumber}?`)) {
+                // Create a simple confetti effect
+                for (let i = 0; i < 30; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'particle';
+                    confetti.style.width = `${Math.random() * 8 + 4}px`;
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.backgroundColor = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b'][Math.floor(Math.random() * 4)];
+                    confetti.style.left = `${Math.random() * 100}%`;
+                    confetti.style.top = `${Math.random() * 100}%`;
+                    confetti.style.position = 'fixed';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
                 }
+                
+                // Add falling animation
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes fall {
+                        to {
+                            transform: translateY(100vh) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Actually make the call after a slight delay
+                setTimeout(() => {
+                    window.location.href = `tel:${phoneNumber}`;
+                }, 1000);
             }
         });
     </script>
